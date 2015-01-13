@@ -3,7 +3,7 @@
 namespace GorkaLaucirica\HipchatAPIv2Client;
 
 use GorkaLaucirica\HipchatAPIv2Client\Auth\OAuth2;
-use GorkaLaucirica\HipchatAPIv2Client\Client;
+use HipchatClient\Client;
 use HipchatClient\RoomApi;
 use HipchatClient\Message;
 use \Exception;
