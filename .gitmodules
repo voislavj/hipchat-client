@@ -1,3 +1,7 @@
 [submodule "Buzz"]
     path = lib/Buzz
     url  = https://github.com/kriswallsmith/Buzz.git
+
+[submodule "HipchatAPIv2Client"]
+    path = lib/Hipchat
+    url  = https://github.com/gorkalaucirica/HipchatAPIv2Client.git
