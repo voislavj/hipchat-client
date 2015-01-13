@@ -24,9 +24,10 @@ spl_autoload_register(function($class) {
     } else if (preg_match('/^HipchatClient/', $class)) {
         $path = "lib/" . preg_replace('/^HipchatClient\\\\/', '', $class) . ".php";
     } else {
-        $path = "lib/HipChat/" . preg_replace('/'.str_replace("\\", "\\\\", __NAMESPACE__)."\\\\/", '', $class) . ".php";
+        $path = "lib/Hipchat/" . preg_replace('/'.str_replace("\\", "\\\\", __NAMESPACE__)."\\\\/", '', $class) . ".php";
     }
 
+    $path = str_replace("\\", "/", $path);
     require_once $path;
 });
 
