@@ -17,6 +17,20 @@ header {
     text-align:center;
     height:60px;
     line-height: 60px;
+    position:relative;
+}
+
+header .logout {
+    position:absolute;
+    top:0;
+    right:0;
+    width:60px;
+    height:60px;
+    line-height: 60px;
+    color:white;
+    background:#369 url('../img/exit.png') no-repeat center center;
+    text-indent: -100em;
+    overflow: hidden;
 }
 
 .users {
@@ -53,7 +67,7 @@ header {
     float:left;
     width:100%;
 }
-.history .date {
+.history .item >.date {
     position:absolute;
     right:5px;
     bottom:5px;

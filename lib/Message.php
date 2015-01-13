@@ -12,7 +12,13 @@ class Message extends HipMessage {
         return $this->from;
     }
 
-    public function getDate($format="Y-m-d H:i:s")
+    public function getDate($format="Y-m-d")
+    {
+        $time = strtotime($this->date);
+        return date($format, $time);
+    }
+
+    public function getTime($format="H:i")
     {
         $time = strtotime($this->date);
         return date($format, $time);

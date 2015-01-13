@@ -1,0 +1,33 @@
+@media all and (max-width: 480px) {
+    .users {
+        display:none;
+    }
+
+    .history .item {
+        font-size:12px;
+    }
+
+    .history .from {
+        width:auto;
+        display:block;
+        float:none;
+        text-align: left;
+        margin-left:5px;
+    }
+    .history .date .date {
+        display:none;
+    }
+
+    .history .message {
+        margin-left:10px;
+        width:auto;
+        margin-top:3px;
+    }
+
+    footer input[type=text] {
+        width:70%;
+    }
+    footer input[type=submit] {
+        width:25%;
+    }
+}
