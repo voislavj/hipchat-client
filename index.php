@@ -12,11 +12,12 @@ session_start();
 
 define("ROOM_NAME", "AdOps");
 
-if (! isset($_SESSION['auth'])) {
+$action = @$_GET['a'];
+
+if (! isset($_SESSION['auth']) && $action!='login') {
     header('Location: login');
     die;
 }
-
 
 spl_autoload_register(function($class) {
     if (preg_match('/^Buzz/', $class)) {
@@ -31,41 +32,20 @@ spl_autoload_register(function($class) {
     require_once $path;
 });
 
-$error = false;
 $token = file_get_contents('token');
+$auth  = new OAuth2($token);
+$client = new Client($auth);
+$roomApi = new RoomApi($client);
+$room = $roomApi->getRoom(ROOM_NAME);
 
-try {
-    $auth  = new OAuth2($token);
-
-    $client = new Client($auth);
-    $roomApi = new RoomApi($client);
-    $room = $roomApi->getRoom(ROOM_NAME);
-
-    if ($room) {
-
-        $message = @$_POST['message'];
-        if (! empty($message)) {
-            $msg = new Message(array(
-                'color'   => Message::COLOR_GRAY,
-                'message' => $message,
-                'message_format' => Message::FORMAT_TEXT
-            ));
-            $msg->setNotify(true);
-            $sent = $roomApi->sendRoomNotification($room->getId(), $msg);
-            header('Location: ' . $_SERVER['REQUEST_URI']);
-            die;
-        }
-
-        $history = $roomApi->getRecentHistory($room->getId());
-    } else {
-        $error = "Room not found.";
-    }
-}catch(Exception $e) {
-    $error = $e->getMessage();
+$className = ucfirst($action);
+if ($className && $className!='Index') {
+    $class = "HipchatClient\\Action\\{$className}";
+    new $class($room, $client);
+    die;
 }
-?>
-<? if($error): ?><?= $error ?><? else: ?>
-<!DOCTYPE html>
+
+?><!DOCTYPE html>
 <html>
 <head>
     <title><?= $room->getName() ?>: <?= $room->getTopic() ?></title>
@@ -80,22 +60,17 @@ try {
 
 <body>
 <header>
-    <?= $room->getTopic() ?>
+    <h1>
+        <?= $room->getName() ?>
+        <span class="topic"><?= $room->getTopic(true) ?></span>
+    </h1>
     <a class="logout" href="login?logout" title="Exit...">Logout</a>
 </header>
-<div class="users">
-    <? foreach($room->getParticipants() as $user): ?>
-        <p class="<?= $user->getPresence() ?>"><?= $user->getName() ?></p>
-    <? endforeach ?>
-</div>
+<ul class="users">
+    
+</ul>
 <div class="history">
-    <? foreach ($history as $item): ?>
-    <div class="item">
-        <div class="date"><span class="date"><?= $item->getDate() ?></span> <span class="time"><?= $item->getTime() ?></span></div>
-        <strong class="from"><?= $item->getFrom() ?></strong>
-        <div class="message"><?= $item->getMessage() ?></div>
-    </div>
-    <? endforeach ?>
+    
 </div>
 <footer>
     <form action="./" method="post">
@@ -103,6 +78,5 @@ try {
     <input type="submit" value="Send">
     </form>
 </footer>
-<? endif ?>
 </body>
 </html>

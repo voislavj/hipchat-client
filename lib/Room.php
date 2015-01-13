@@ -10,7 +10,8 @@ class Room extends HipRoom {
     protected $client;
     protected $apiUser;
     
-    public function __construct($json=null, $client=null) {
+    public function __construct($json=null, $client=null)
+    {
         $this->client = $client;
         $this->apiUser = new UserAPI($client);
         
@@ -33,7 +34,7 @@ class Room extends HipRoom {
             $this->topic = $json['topic'];
             $this->participants = array();
             foreach ($json['participants'] as $participant) {
-                if (! $participant['presence']) {
+                if (! isset($participant['presence'])) {
                     $this->participants[] = $this->apiUser->getUser($participant['id']);
                 } else {
                     $this->participants[] = new User($participant);
@@ -41,6 +42,15 @@ class Room extends HipRoom {
             }
             $this->owner = new User($json['owner']);
             $this->guestAccessUrl = $json['guest_access_url'];
+        }
+    }
+
+    public function getTopic($link=false)
+    {
+        if ($link && preg_match('/^[fh]t+ps?:\/\//', $this->topic)) {
+            return sprintf('<a href="%s" target="_blank">%s</a>', $this->topic, $this->topic);
+        } else {
+            return $this->topic;
         }
     }
 }

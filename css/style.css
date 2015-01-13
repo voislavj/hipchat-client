@@ -20,6 +20,17 @@ header {
     position:relative;
 }
 
+header .topic {
+    font:0.5em Arial;
+}
+header .topic a {
+    color:#00C3FF;
+    text-decoration:underline;
+}
+header .topic a:hover {
+    text-decoration: none
+}
+
 header .logout {
     position:absolute;
     top:0;
@@ -38,27 +49,38 @@ header .logout {
     width:20%;
     overflow:auto;
     background:#ccc;
+    list-style:none;
 }
-.users p{
-    margin:10px;
+.users.loading {
+    background:#ccc url(../img/loading.gif) no-repeat center;
+}
+.users li{
+    padding:10px 10px 10px 30px;
     position: relative;
-    padding-left:20px;
+    border-bottom:1px inset black;
+    background:linear-gradient(#ddd, #ccc);
 }
-.users p:before {
+.users li:before {
     content: " ";
     position:absolute;
-    width:16px;
-    height:16px;
-    left: 0;
+    width:12px;
+    height:12px;
+    left: 6px;
+    top:50%;
+    margin-top:-8px;
     background:green;
-    border-radius:8px;
+    border-radius:6px;
+    border:1px solid white;
 }
-.users p.away:before {
+.users li.away:before {
     background:#fc0;
 }
 
 .history {
     overflow:auto;
+}
+.history.loading {
+    background:#fff url(../img/loading.white.gif) no-repeat center;
 }
 .history .item {
     padding:10px 0;
