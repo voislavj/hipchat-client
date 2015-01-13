@@ -1,0 +1,102 @@
+* {
+    margin:0;
+    padding:0;
+}
+
+html, body {height:100%}
+
+body {
+    font: 14px Arial;
+    height:100%;
+}
+
+header {
+    background:#369;
+    color:white;
+    font-weight:bolder;
+    text-align:center;
+    height:60px;
+    line-height: 60px;
+}
+
+.users {
+    float:right;
+    width:20%;
+    overflow:auto;
+    background:#ccc;
+}
+.users p{
+    margin:10px;
+    position: relative;
+    padding-left:20px;
+}
+.users p:before {
+    content: " ";
+    position:absolute;
+    width:16px;
+    height:16px;
+    left: 0;
+    background:green;
+    border-radius:8px;
+}
+.users p.away:before {
+    background:#fc0;
+}
+
+.history {
+    overflow:auto;
+}
+.history .item {
+    padding:10px 0;
+    position:relative;
+    border-bottom:1px dotted #ccc;
+    float:left;
+    width:100%;
+}
+.history .date {
+    position:absolute;
+    right:5px;
+    bottom:5px;
+    font-size:11px;
+    color:#aaa;
+    width:10%;
+    text-align: right;
+}
+.history .from {
+    float:left;
+    width:15%;
+    text-align:right;
+    margin-right:2%;
+    color:#777;
+}
+.history .message {
+    float:left;
+    width:73%;
+}
+
+footer {
+    float:left;
+    width:98%;
+    height:40px;
+    padding:1%;
+    background:#ccc;
+}
+
+footer input[type=text] {
+    height:36px;
+    width:90%;
+    padding:0 1%;
+    border:none;
+    line-height: 36px;
+    float:left;
+}
+footer input[type=submit] {
+    float:right;
+    width:7%;
+    height:36px;
+    border:none;
+    background:#369;
+    color:white;
+    cursor:pointer;
+    font-weight:bolder;
+}
